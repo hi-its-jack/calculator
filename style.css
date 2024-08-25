@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: black;
+}
+
+.calculator{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgba(226, 225, 225, 0.26);
+    background-color: rgb(77, 78, 80);
+}
+
+.display{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 120px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn{
+    padding: 20px;
+    flex: 1 0 21%;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+    
+}
+
+.btn[data-value="0"]{
+    flex: 1 0 47%;
+}
+
+.btn[data-action="clear"], 
+.btn[data-action="delete"]{
+    background-color: orange;
+    font-weight: 550;
+}
+
+.btn[data-action="operator"]{
+    background-color: black;
+    color: white;
+    font-weight: 550;
+}
+
+.btn[data-action="calculate"]{
+    background-color: rgb(7, 7, 138);
+    color: white;
+    font-weight: 550;
+}
+
+.btn[data-action="decimal"]{
+
+    font-weight: 550;
+}
