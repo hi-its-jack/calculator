@@ -33,7 +33,7 @@ body{
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    overflow: hidden; /* Prevent overflow */
+    overflow: hidden; 
 }
 
 .history {
@@ -53,15 +53,14 @@ body{
     text-overflow: ellipsis;
     text-align: right;
 }
-/* Reduce font size dynamically if the number is too long */
+
 .current.long-text {
-    font-size: 1.5em; /* Adjust as needed */
+    font-size: 1.5em; 
 }
 
 .current.longer-text {
-    font-size: 1.2em; /* Adjust as needed */
+    font-size: 1.2em; 
 }
-
 
 .buttons{
     display: flex;
@@ -76,7 +75,6 @@ body{
     font-size: 1.5rem;
     border: none;
     cursor: pointer;
-    
 }
 
 .btn[data-value="0"]{

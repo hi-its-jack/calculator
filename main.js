@@ -9,7 +9,6 @@ let shouldResetDisplay = false;
 
 currentDisplay.textContent = "0";
 
-// Add event listeners to buttons
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         const action = button.dataset.action;
@@ -34,14 +33,14 @@ buttons.forEach((button) => {
 });
 
 function updateDisplay(value) {
-    if (currentDisplay.textContent === "0" || shouldResetDisplay) {
+    if (shouldResetDisplay) {
         reset();
     }
 
-    if (value !== "." && currentDisplay.textContent === "0") {
-        currentDisplay.textContent = value;
-    } else {
+    if (value === "." && !currentDisplay.textContent.includes(".")) {
         currentDisplay.textContent += value;
+    } else if (value !== ".") {
+        currentDisplay.textContent = currentDisplay.textContent === "0" ? value : currentDisplay.textContent + value;
     }
 
     adjustFontSize(currentDisplay);
@@ -105,6 +104,7 @@ function calculate() {
     historyDisplay.textContent = `${firstNum} ${operator} ${secondNum} =`;
     operator = null;
     firstNum = currentDisplay.textContent;
+    shouldResetDisplay = true; // Ensure the next input replaces the result
     adjustFontSize(currentDisplay);
 }
 
