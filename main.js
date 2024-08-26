@@ -1,7 +1,9 @@
+//variables
 const historyDisplay = document.querySelector(".history");
 const currentDisplay = document.querySelector(".current");
 const buttons = document.querySelectorAll(".btn");
 
+//default values
 let firstNum = "";
 let secondNum = "";
 let operator = null;
@@ -104,12 +106,12 @@ function calculate() {
     historyDisplay.textContent = `${firstNum} ${operator} ${secondNum} =`;
     operator = null;
     firstNum = currentDisplay.textContent;
-    shouldResetDisplay = true; // Ensure the next input replaces the result
+    shouldResetDisplay = true; 
     adjustFontSize(currentDisplay);
 }
 
 function roundNumber(num) {
-    return Math.round(num * 10000) / 10000;  // Rounding to 4 decimal places
+    return Math.round(num * 10000) / 10000;  
 }
 
 function operate(operator, a, b) {
@@ -148,20 +150,20 @@ function adjustFontSize(element) {
     }
 }
 
-document.addEventListener("keydown", (event) => {
-    if (!isNaN(event.key)) {
-        updateDisplay(event.key);
-    } else if (event.key === ".") {
+document.addEventListener("keydown", (e) => {
+    if (!isNaN(e.key)) {
+        updateDisplay(e.key);
+    } else if (e.key === ".") {
         addDecimal();
-    } else if (event.key === "=" || event.key === "Enter") {
+    } else if (e.key === "=" || e.key === "Enter") {
         calculate();
-    } else if (event.key === "Backspace") {
+    } else if (e.key === "Backspace") {
         deleteNumber();
-    } else if (event.key === "Escape") {
+    } else if (e.key === "Escape") {
         clear();
-    } else if (["+", "-", "*", "/"].includes(event.key)) {
-        handleOperator(event.key);
-    } else if (event.key === "±" || event.key === "+/-") {
+    } else if (["+", "-", "*", "/"].includes(e.key)) {
+        handleOperator(e.key);
+    } else if (e.key === "±" || e.key === "+/-") {
         toggleSign();
     }
 });
