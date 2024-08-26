@@ -23,17 +23,45 @@ body{
     background-color: rgb(77, 78, 80);
 }
 
-.display{
+.display {
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-end;
     min-height: 120px;
     background-color: white;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    font-size: 2em;
+    overflow: hidden; /* Prevent overflow */
 }
+
+.history {
+    font-size: 1rem;
+    color: gray;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+    margin-bottom: 5px;
+}
+
+.current {
+    font-size: 2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+/* Reduce font size dynamically if the number is too long */
+.current.long-text {
+    font-size: 1.5em; /* Adjust as needed */
+}
+
+.current.longer-text {
+    font-size: 1.2em; /* Adjust as needed */
+}
+
 
 .buttons{
     display: flex;
@@ -61,7 +89,7 @@ body{
     font-weight: 550;
 }
 
-.btn[data-action="operator"]{
+.btn[data-action="operator"], .btn[data-action="sign-toggle"]{
     background-color: black;
     color: white;
     font-weight: 550;
@@ -75,4 +103,27 @@ body{
 
 .btn[data-action="decimal"]{
     font-weight: 550;
+}
+
+.btn {
+    transition: background-color 0.1s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background-color: #b9b9b9;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 480px) {
+    .calculator {
+        width: 90%;
+        padding: 15px;
+    }
+    .btn {
+        padding: 15px;
+        font-size: 1.2rem;
+    }
 }

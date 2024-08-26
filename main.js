@@ -1,119 +1,167 @@
-let firstNum = ""
-let secondNum = ""
-let operator = null
+const historyDisplay = document.querySelector(".history");
+const currentDisplay = document.querySelector(".current");
+const buttons = document.querySelectorAll(".btn");
 
-const display = document.querySelector(".display")
-const buttons = document.querySelectorAll(".btn")
+let firstNum = "";
+let secondNum = "";
+let operator = null;
+let shouldResetDisplay = false;
 
-display.textContent = "0"
+currentDisplay.textContent = "0";
 
+// Add event listeners to buttons
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
+        const action = button.dataset.action;
+        const value = button.dataset.value;
 
-        const action = button.dataset.action  
-        const value = button.dataset.value 
+        if (!action) {
+            updateDisplay(value);
+        } else if (action === "clear") {
+            clear();
+        } else if (action === "delete") {
+            deleteNumber();
+        } else if (action === "decimal") {
+            addDecimal();
+        } else if (action === "operator") {
+            handleOperator(value);
+        } else if (action === "calculate") {
+            calculate();
+        } else if (action === "sign-toggle") {
+            toggleSign();
+        }
+    });
+});
 
-        if (!action){
-            updateDisplay(value)
-        }
-        else if (action === "clear"){
-            clear()
-        }
-        else if (action === "delete"){
-            deleteNumber()
-        }
-        else if (action === "decimal"){
-            addDecimal()
-        }
-        else if (action === "operator"){
-            handleOperator(value)
-        }
-        else if (action === "calculate"){
-            //calculate result of operation
-        }        
+function updateDisplay(value) {
+    if (currentDisplay.textContent === "0" || shouldResetDisplay) {
+        reset();
+    }
 
-    })
-})
+    if (value !== "." && currentDisplay.textContent === "0") {
+        currentDisplay.textContent = value;
+    } else {
+        currentDisplay.textContent += value;
+    }
 
-function updateDisplay(value){
-    if (display.textContent === "0"){
-        reset()
-    }    
-    display.textContent += value
+    adjustFontSize(currentDisplay);
 }
 
-function reset(){
-    display.textContent = ""
+function reset() {
+    currentDisplay.textContent = "";
+    shouldResetDisplay = false;
+    currentDisplay.classList.remove("long-text", "longer-text");
+    adjustFontSize(currentDisplay);
 }
 
-function clear(){
-    display.textContent = "0"
-    firstNum = ""
-    secondNum = ""
-    operator = null
+function clear() {
+    currentDisplay.textContent = "0";
+    historyDisplay.textContent = "";
+    firstNum = "";
+    secondNum = "";
+    operator = null;
+    shouldResetDisplay = false;
+    adjustFontSize(currentDisplay);
 }
 
-function deleteNumber(){
-    display.textContent = display.textContent.slice(0,-1)
-    if (display.textContent === ""){
-        display.textContent = "0"
+function deleteNumber() {
+    if (currentDisplay.textContent.length > 1) {
+        currentDisplay.textContent = currentDisplay.textContent.slice(0, -1);
+    } else {
+        currentDisplay.textContent = "0";
+    }
+    adjustFontSize(currentDisplay);
+}
+
+function addDecimal() {
+    if (shouldResetDisplay) reset();
+    if (!currentDisplay.textContent.includes(".")) {
+        currentDisplay.textContent += ".";
     }
 }
 
-function addDecimal(){
-    if (!display.textContent.includes(".")){
-        display.textContent += "."
+function handleOperator(operation) {
+    if (operator !== null && !shouldResetDisplay) {
+        calculate();
+    }
+    firstNum = currentDisplay.textContent;
+    operator = operation;
+    historyDisplay.textContent = `${firstNum} ${operator}`;
+    shouldResetDisplay = true;
+}
+
+function calculate() {
+    if (operator === null || shouldResetDisplay || firstNum === "") return;
+
+    secondNum = currentDisplay.textContent;
+    const result = operate(operator, firstNum, secondNum);
+
+    if (result === "Error") {
+        currentDisplay.textContent = "Can't divide by zero!";
+    } else {
+        currentDisplay.textContent = roundNumber(result);
+    }
+
+    historyDisplay.textContent = `${firstNum} ${operator} ${secondNum} =`;
+    operator = null;
+    firstNum = currentDisplay.textContent;
+    adjustFontSize(currentDisplay);
+}
+
+function roundNumber(num) {
+    return Math.round(num * 10000) / 10000;  // Rounding to 4 decimal places
+}
+
+function operate(operator, a, b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    if (operator === '+') {
+        return a + b;
+    } else if (operator === '-') {
+        return a - b;
+    } else if (operator === '*') {
+        return a * b;
+    } else if (operator === '/') {
+        return b === 0 ? "Error" : a / b;
+    } else {
+        return null;
     }
 }
 
-function handleOperator(operation){
-    display.textContent += operation.toString()
+function toggleSign() {
+    const currentValue = parseFloat(currentDisplay.textContent);
+    if (!isNaN(currentValue)) {
+        currentDisplay.textContent = roundNumber(-currentValue);
+    }
+    adjustFontSize(currentDisplay);
 }
 
-
-
-
-
-
-
-
-function add(a,b){
-    console.log(a+b) 
-}
-function subtract(a,b){
-    console.log(a-b) 
-}
-function multiply(a,b){
-    console.log(a*b) 
-}
-function divide(a,b){
-    console.log(a/b) 
+function adjustFontSize(element) {
+    if (!element) return;
+    const textLength = element.textContent.length;
+    if (textLength > 15) {
+        element.style.fontSize = '1.5em';
+    } else if (textLength > 10) {
+        element.style.fontSize = '1.75em';
+    } else {
+        element.style.fontSize = '2em';
+    }
 }
 
-
-/* 
-Gotchas...
-- Your calculator should not evaluate more than a single pair
-of numbers at a time.
-- You should round answers with long decimals so that they 
-don’t overflow the screen.
-- Pressing = before entering all of the numbers or an operator
-could cause problems!
-- Pressing “clear” should wipe out any existing data. Make sure 
-the user is really starting fresh after pressing “clear”
-- Display a snarky error message if the user tries to divide by 0… 
-and don’t let it crash your calculator!
-
-Extra credit...
-Users can get floating point numbers if they do the math 
-required to get one, but they can’t type them in yet. Add a . button
-and let users input decimals! Make sure you don’t let them type more 
-than one though: 12.3.56.5. It is hard to do math on these numbers. 
-(disable the decimal button if there’s already one in the display)
-- Make it look nice! This is a great project to practice your CSS 
-skills. At least make the operations a different color from the keypad
-buttons.
-- Add a “backspace” button, so the user can undo if they click the 
-wrong number.
-- Add keyboard support!
-*/
+document.addEventListener("keydown", (event) => {
+    if (!isNaN(event.key)) {
+        updateDisplay(event.key);
+    } else if (event.key === ".") {
+        addDecimal();
+    } else if (event.key === "=" || event.key === "Enter") {
+        calculate();
+    } else if (event.key === "Backspace") {
+        deleteNumber();
+    } else if (event.key === "Escape") {
+        clear();
+    } else if (["+", "-", "*", "/"].includes(event.key)) {
+        handleOperator(event.key);
+    } else if (event.key === "±" || event.key === "+/-") {
+        toggleSign();
+    }
+});

@@ -10,11 +10,14 @@
 <body>
     
     <main class="calculator">
-        <div class="display"></div>
+        <div class="display">
+            <div class="history"></div> <!-- For past operations -->
+            <div class="current"></div> <!-- For the current operation -->
+        </div>
         <div class="buttons">
             <button class="btn" data-action="clear">AC</button>
             <button class="btn" data-action="delete">DEL</button>
-            <button class="btn" data-action="operator" data-value="+/-">+/-</button>
+            <button class="btn" data-action="sign-toggle">+/-</button>
             <button class="btn" data-action="operator" data-value="/">/</button>
             
             <button class="btn" data-value="7">7</button>
