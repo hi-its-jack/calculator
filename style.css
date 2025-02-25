@@ -16,25 +16,19 @@ body {
 }
 
 .header {
-    margin: 40px 0;
+    margin: 0px 0 50px 0;
 }
 
 .main-section {
-    height: 500px;
-    width: 400px;
     background-color: black;
     box-shadow: 12px 12px 10px grey;
     border-radius: 10px;
-
-}
-
-.calculator {
-    height: 100%;
-    width: 100%;
+    width: 280px;
+    height: 350px;
 }
 
 .display {
-    height: 125px;
+    height: 100px;
     margin: 20px 20px 0px 20px;
     border-radius: 6px; 
     border-style: none;
@@ -43,33 +37,32 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    padding: 24px;
+    padding: 12px;
     font-weight: 600;
-    font-size: 2.5em;
+    font-size: 2em;
     text-shadow: 1px 1px 2px grey;
 }
 
 .btns {
-    height: 350px;
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
     padding: 20px;
 }
 
 .btn {
-    flex: 1 0 80px;
+    flex: 1 0 50px;
     border-radius: 6px; 
     border-style: none;
     background-color: whitesmoke;
     box-shadow:  2px 2px 2px grey;
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: 600;
     display: flex;
     justify-content: center;
     align-items:center;
     cursor: pointer;
+    padding: 4px;
 }
 
 
