@@ -13,42 +13,41 @@
         <h1 class="header">Calculator</h1>
     </header>
 
-
     <main class='main-section'>
         <div class='calculator'>
-            <div class="display">0</div>
+            
+            <div class="display">
+                <p id="previousDisplay" class="previous"></p>
+                <p id="currentDisplay" class="current">0</p>
+            </div>
+              
             <div class="btns">
-
-                <button class='btn' disabled>#</button>
-                <button class='btn'disabled>#</button>
-                <button class='btn' disabled>#</button>
-                <button class='btn' disabled>#</button>
-
+                <button class='btn' data-action="clear" style='background-color: orange;'>AC</button>
+                <button class='btn' data-action="delete" style='background-color: blue; color: white;'>DEL</button>
+                <button class='btn' data-action="." style='background-color: gray;'>.</button>
+                <button class='btn' data-action="/" style='background-color: gray;'>/</button>
+                
                 <button class='btn' data-value='7'>7</button>
                 <button class='btn' data-value='8'>8</button>
                 <button class='btn' data-value='9'>9</button>
-                <button class='btn' data-action='-'>-</button>
-
+                <button class='btn' data-action='-' style='background-color: gray;'>-</button>
+                
                 <button class='btn' data-value='4'>4</button>
                 <button class='btn' data-value='5'>5</button>
                 <button class='btn' data-value='6'>6</button>
-                <button class='btn' data-action="+">+</button>
-
+                <button class='btn' data-action="+" style='background-color: gray;'>+</button>
+                
                 <button class='btn' data-value="1">1</button>
                 <button class='btn' data-value="2">2</button>
                 <button class='btn' data-value="3">3</button>
-                <button class='btn' data-action="*">*</button>
-
-                <button class='btn' data-value="0">0</button>
-                <button class='btn' data-action="equals">=</button>
-                <button class='btn' data-action="clear">AC</button>
-                <button class='btn' data-action="/">/</button>
+                <button class='btn' data-action="*" style='background-color: gray;'>*</button>
                 
+                <button class='btn' data-value="0">0</button>
+                <button class='btn' data-action="equals" style='background-color: gray;'>=</button>
+
             </div>
         </div>
-        
     </main>
-
 
     <footer class="footer-section">
         <p class="footer">Copyright &copy Odin Project 2025</p>
